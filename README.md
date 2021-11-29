@@ -9,7 +9,7 @@ The ELTYER python client is a python library that can be used in your investing 
 With this client your can connect your algorithm to the ELTYER.
 
 ## Installation
-You can install directly using pip:
+You can install the client directly using pip:
 
 ```sh
 pip install eltyer_client
