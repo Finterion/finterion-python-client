@@ -6,13 +6,18 @@ class OrderSide(Enum):
     BUY = 'BUY'
 
     @staticmethod
-    def from_string(value: str):
+    def from_value(value):
 
         if isinstance(value, str):
-            for order_type in OrderSide:
+            for order_side in OrderSide:
 
-                if value.upper() == order_type.value:
-                    return order_type
+                if value.upper() == order_side.value:
+                    return order_side
+        elif isinstance(value, OrderSide):
+            for order_side in OrderSide:
+
+                if value == order_side:
+                    return order_side
 
         raise ValueError("Could not convert value to OrderSide")
 

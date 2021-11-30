@@ -6,12 +6,17 @@ class OrderType(Enum):
     MARKET = 'MARKET'
 
     @staticmethod
-    def from_string(value: str):
+    def from_value(value):
 
         if isinstance(value, str):
             for order_type in OrderType:
 
                 if value.upper() == order_type.value:
+                    return order_type
+        elif isinstance(value, OrderType):
+            for order_type in OrderType:
+
+                if value == order_type:
                     return order_type
 
         raise ValueError("Could not convert value to OrderType")

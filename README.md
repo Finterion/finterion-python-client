@@ -42,7 +42,9 @@ client.config.from_env()
 client.start()
 
 # Create an limit order
-limit_order = client.create_order()
+limit_order = client.create_limit_order(
+    symbol="btc", amount=10, price=20, side="BUY",
+)
 
 # List all orders
 orders = client.get_orders()

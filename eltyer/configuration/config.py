@@ -6,8 +6,9 @@ class Config(dict):
     LOG_LEVEL = 'INFO'
     APP_DIR = os.path.abspath(os.path.dirname(__file__))
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
-    api_key = None
-    host = BASE_URL
+    ORDERS_ENDPOINT = "/orders"
+    API_KEY = None
+    HOST = BASE_URL
 
     def __init__(self):
         super().__init__()
@@ -94,13 +95,13 @@ class Config(dict):
     def set(self, key: str, value) -> None:
         self[key] = value
 
-    @staticmethod
-    def from_dict(dictionary):
-        config = Config()
+    def from_dict(self, dictionary):
 
         for attribute_key in dictionary:
-
             if attribute_key:
-                config.set(attribute_key, dictionary[attribute_key])
-                config[attribute_key] = dictionary[attribute_key]
-        return config
+                self.set(attribute_key, dictionary[attribute_key])
+                self[attribute_key] = dictionary[attribute_key]
+
+    @property
+    def configured(self):
+        return not (self.API_KEY is None or self.HOST is None)

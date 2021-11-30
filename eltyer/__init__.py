@@ -1,9 +1,15 @@
+import requests
+from logging import getLogger
 from multiprocessing.pool import ThreadPool
 
 from eltyer.configuration.config import Config
 from eltyer.utils.version import get_version
+from eltyer.models import OrderSide, OrderType, Order
+from eltyer.exceptions import ClientException
 
 VERSION = (0, 0, 1, 'alpha', 0)
+
+logger = getLogger(__name__)
 
 
 class Client:
@@ -12,7 +18,9 @@ class Client:
     _pool = None
 
     def start(self):
-        pass
+
+        if not self.config.configured:
+            raise ClientException("Client is not configured")
 
     def stop(self):
         if self._pool:
@@ -35,14 +43,48 @@ class Client:
         symbol: str,
         price: float,
         amount: float,
-    ):
-        pass
+        side: str = OrderSide.BUY.value
+    ) -> Order:
+        payload = {
+            "target_symbol": symbol,
+            "price": price,
+            "amount": amount,
+            "side": OrderSide.from_value(side).value,
+            "type": OrderType.LIMIT.value,
+        }
 
-    def create_market_order(self):
-        pass
+        response = requests.post(
+            f"{self.config.HOST}{self.config.ORDERS_ENDPOINT}",
+            json=payload,
+            headers={"x-api-key": self.config.API_KEY}
+        )
 
-    def create_order(self):
-        pass
+        data = self._handle_response(response)
+        return Order.from_dict(data)
+
+    def create_market_order(
+        self,
+        symbol: str,
+        price: float,
+        amount: float,
+        side: str = OrderSide.SELL.value
+    ) -> Order:
+        payload = {
+            "target_symbol": symbol,
+            "price": price,
+            "amount": amount,
+            "side": OrderSide.from_value(side).value,
+            "type": OrderType.MARKET.value,
+        }
+
+        response = requests.post(
+            f"{self.config.HOST}{self.config.ORDERS_ENDPOINT}",
+            json=payload,
+            headers={"x-api-key": self.config.API_KEY}
+        )
+
+        data = self._handle_response(response)
+        return Order.from_dict(data)
 
     def get_pending_orders(self):
         pass
@@ -52,6 +94,17 @@ class Client:
 
     def get_portfolio(self):
         pass
+
+    def _handle_response(self, response):
+
+        if response.status_code >= 400:
+
+            if response.status_code == 500:
+                raise ClientException("Something went wrong at ELTYER")
+
+            raise ClientException(response.json()["error_message"])
+
+        return response.json()
 
 
 __all__ = ["Client", "get_version"]

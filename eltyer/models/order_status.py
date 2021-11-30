@@ -10,13 +10,18 @@ class OrderStatus(Enum):
     CLOSED = "CLOSED"
 
     @staticmethod
-    def from_string(value: str):
+    def from_value(value):
 
         if isinstance(value, str):
             for order_type in OrderStatus:
 
                 if value.upper() == order_type.value:
                     return order_type
+        elif isinstance(value, OrderStatus):
+            for status in OrderStatus:
+
+                if value == status:
+                    return status
 
         raise ValueError("Could not convert value to OrderStatus")
 
