@@ -6,9 +6,17 @@ class Config(dict):
     LOG_LEVEL = 'INFO'
     APP_DIR = os.path.abspath(os.path.dirname(__file__))
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
+
+    # ENDPOINTS
     ORDERS_ENDPOINT = "/orders"
+    LIST_ORDERS_ENDPOINT = "/algorithms/{algorithm_id}/orders"
+    API_KEY_VERIFY_ENDPOINT = "/algorithms/api-keys/verify"
+    POSITIONS_ENDPOINT = "/algorithms/{algorithm_id}/positions"
+    PORTFOLIO_ENDPOINT = "/algorithms/{algorithm_id}/portfolio"
+
     API_KEY = None
-    HOST = BASE_URL
+    HOST_ORDER_SERVICE = BASE_URL
+    HOST_ALGORITHM_SERVICE = BASE_URL
 
     def __init__(self):
         super().__init__()
@@ -104,4 +112,4 @@ class Config(dict):
 
     @property
     def configured(self):
-        return not (self.API_KEY is None or self.HOST is None)
+        return not (self.API_KEY is None or self.HOST_ALGORITHM_SERVICE is None or self.HOST_ORDER_SERVICE is None)

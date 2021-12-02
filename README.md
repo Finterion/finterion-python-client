@@ -18,18 +18,18 @@ pip install eltyer_client
 ## Usage
 Example usage
 ```python
-from eltyer import Client
+from eltyer import Client, OrderStatus
 
-# Create an client and configure it
+# Create a client and configure it with your algorithm api keys from ELTYER
 client = Client()
 
 # ****Configuration options****
 
-# Configuration with dict 
-client.config.from_dict({"api_key": "<YOUR_API_KEY>"})
+# Configuration with dict
+client.config.from_dict({"API_KEY": "<YOUR_API_KEY>"})
 
 # Configuration with attribute setter
-client.config.api_key = "<YOUR_API_KEY>"
+client.config.API_KEY = "<YOUR_API_KEY>"
 
 # Configuration with environment variable 'ELTYER_API_KEY'
 client.config.from_env()
@@ -41,32 +41,29 @@ client.config.from_env()
 # Start the ELTYER client
 client.start()
 
-# Create an limit order
+# Create a limit order
 limit_order = client.create_limit_order(
-    symbol="btc", amount=10, price=20, side="BUY",
+    target_symbol="btc", amount=1, price=5, side="BUY",
 )
 
-# List all orders
-orders = client.get_orders()
+# Create a market order (only sell market orders are supported)
+market_order = client.create_market_order(target_symbol="btc", amount=1)
 
-# List all pending orders
-pending_orders = client.get_pending_orders()
-
-# Get the order status
-status = client.get_order_status(limit_order.id)
-
-# Retrieve all your positions
+# Get positions
 positions = client.get_positions()
+position = client.get_position("btc")
 
-# Retrieve a specific position
-position = client.get_position("BTC")
+# Get orders
+orders = client.get_orders()
+orders = client.get_orders(
+    target_symbol="btc", status=OrderStatus.PENDING.value
+)
 
-# Retrieve the portfolio of your algorithm
+# Get the portfolio
 portfolio = client.get_portfolio()
 
 # Stop the client
 client.stop()
-
 ```
 
 

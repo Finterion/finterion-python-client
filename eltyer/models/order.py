@@ -19,11 +19,11 @@ class Order(Model):
         amount_trading_symbol=None,
     ):
         self.id = id,
-        self.side = OrderSide.from_value(side).value
-        self.type = OrderType.from_value(type).value
+        self.side = OrderSide.from_value(side)
+        self.type = OrderType.from_value(type)
         self.target_symbol = target_symbol
         self.trading_symbol = trading_symbol
-        self.status = OrderStatus.from_value(status).value
+        self.status = OrderStatus.from_value(status)
         self.initial_price = initial_price
         self.amount_trading_symbol = amount_trading_symbol
         self.amount_target_symbol = amount_target_symbol
@@ -42,4 +42,15 @@ class Order(Model):
             amount_trading_symbol=data.get("amount_trading_symbol", None),
         )
 
-
+    def __repr__(self):
+        return self.repr(
+            id=self.id,
+            side=self.side.value,
+            type=self.type.value,
+            target_symbol=self.target_symbol,
+            trading_symbol=self.trading_symbol,
+            status=self.status.value,
+            initial_price=self.initial_price,
+            amount_target_symbol=self.amount_target_symbol,
+            amount_trading_symbol=self.amount_trading_symbol,
+        )

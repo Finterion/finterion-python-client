@@ -23,7 +23,7 @@ class OrderStatus(Enum):
                 if value == status:
                     return status
 
-        raise ValueError("Could not convert value to OrderStatus")
+        return None
 
     def equals(self, other):
 
