@@ -42,6 +42,9 @@ client.config.from_env()
 # Start the ELTYER client
 client.start()
 
+# Get the api key context/environment
+client.get_environment()
+
 # Create a limit order
 limit_order = client.create_limit_order(
     target_symbol="btc", amount=1, price=5, side="BUY",
