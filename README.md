@@ -5,8 +5,9 @@
 > :warning: **Documentation outdated**: We are working hard on releasing v1.0.0. After 
 > this release we will update the documentation at the website.
 
-The ELTYER python client is a python library that can be used in your investing algorithm.
-With this client your can connect your algorithm on the ELTYER platform.
+The ELTYER python client is a python library that can be used by your 
+investing algorithm. With this client your can connect your algorithm to 
+the ELTYER platform.
 
 ## Installation
 You can install the client directly using pip:
