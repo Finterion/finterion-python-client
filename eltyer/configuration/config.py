@@ -1,5 +1,5 @@
 import os
-from eltyer.configuration.constants import BASE_URL, ORDERS_ENDPOINT
+from eltyer.configuration.constants import BASE_URL
 
 
 class Config(dict):
@@ -16,7 +16,6 @@ class Config(dict):
 
     API_KEY = None
     HOST_ORDER_SERVICE = BASE_URL
-    HOST_ALGORITHM_SERVICE = BASE_URL
 
     def __init__(self):
         super().__init__()
@@ -112,4 +111,4 @@ class Config(dict):
 
     @property
     def configured(self):
-        return not (self.API_KEY is None or self.HOST_ALGORITHM_SERVICE is None or self.HOST_ORDER_SERVICE is None)
+        return not (self.API_KEY is None or self.HOST_ORDER_SERVICE is None)
