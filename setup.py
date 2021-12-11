@@ -10,7 +10,7 @@ with open('requirements.txt') as f:
     required = f.read().splitlines()
 
 setuptools.setup(
-    name="eltyer_python_client",
+    name="eltyer",
     version=get_version(),
     license='Apache License 2.0',
     author="ELTYER",
@@ -26,7 +26,9 @@ setuptools.setup(
         'INVESTING',
         'BOT',
         'ALGORITHM',
-        'FRAMEWORK'
+        'FRAMEWORK',
+        'investing-bots',
+        'trading-bots'
     ],
     classifiers=[
         "Intended Audience :: Developers",
