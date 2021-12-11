@@ -1,5 +1,5 @@
 [![Tests](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml/badge.svg)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml)
-
+[![Tests](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml)
 # Official ELTYER Python Client
 
 > :warning: **Documentation outdated**: We are working hard on releasing v1.0.0. After 
