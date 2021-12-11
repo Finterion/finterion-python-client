@@ -13,7 +13,7 @@ the ELTYER platform.
 You can install the client directly using pip:
 
 ```sh
-pip install eltyer_client
+pip install eltyer
 ```
 
 ## Usage
