@@ -1,1 +1,1 @@
-BASE_URL = "https://eltyer.com"
+BASE_URL = "https://api.eltyer.com"
