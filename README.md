@@ -1,5 +1,7 @@
 [![Tests](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml/badge.svg)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml)
-[![Build](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml)# Official ELTYER Python Client
+[![Build](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml)
+
+# Official ELTYER Python Client
 
 > :warning: **Documentation outdated**: We are working hard on releasing v1.0.0. After 
 > this release we will update the documentation at the website.
