@@ -1,5 +1,5 @@
 import os
-from eltyer.configuration.constants import BASE_URL
+from eltyer.configuration.constants import BASE_URL, ELTYER_API_KEY, API_KEY
 
 
 class Config(dict):
@@ -108,6 +108,11 @@ class Config(dict):
             if attribute_key:
                 self.set(attribute_key, dictionary[attribute_key])
                 self[attribute_key] = dictionary[attribute_key]
+
+    def from_env(self):
+        api_key = os.getenv(ELTYER_API_KEY, None)
+        self.set(API_KEY, api_key)
+        self[API_KEY] = api_key
 
     @property
     def configured(self):
