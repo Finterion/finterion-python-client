@@ -9,6 +9,7 @@ class Order(Model):
     def __init__(
         self,
         id,
+        order_reference,
         side,
         type,
         target_symbol,
@@ -19,6 +20,7 @@ class Order(Model):
         amount_trading_symbol=None,
     ):
         self.id = id,
+        self.order_reference = order_reference
         self.side = OrderSide.from_value(side)
         self.type = OrderType.from_value(type)
         self.target_symbol = target_symbol
@@ -32,6 +34,7 @@ class Order(Model):
     def from_dict(data):
         return Order(
             id=data.get("id", None),
+            order_reference=data.get("order_reference", None),
             side=data.get("side", None),
             type=data.get("type", None),
             target_symbol=data.get("target_symbol", None),
@@ -45,6 +48,7 @@ class Order(Model):
     def __repr__(self):
         return self.repr(
             id=self.id,
+            order_reference=self.order_reference,
             side=self.side.value,
             type=self.type.value,
             target_symbol=self.target_symbol,
