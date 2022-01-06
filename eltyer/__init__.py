@@ -8,7 +8,7 @@ from eltyer.models import OrderSide, OrderType, Order, Position, Portfolio, \
     OrderStatus
 from eltyer.exceptions import ClientException
 
-VERSION = (0, 0, 1, 'alpha', 0)
+VERSION = (0, 0, 2, 'alpha', 0)
 
 logger = getLogger(__name__)
 
@@ -123,6 +123,23 @@ class Client:
 
         return orders
 
+    def get_order(self, reference_id) -> Order:
+        response = requests.get(
+            f"{self.config.HOST_ORDER_SERVICE}"
+            f"{self.config.LIST_ORDERS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
+            headers={"x-api-key": self.config.API_KEY}
+        )
+
+        data = self._handle_response(response)
+
+        for order_data in data["items"]:
+            ref_order = Order.from_dict(order_data)
+
+            if ref_order.order_reference == reference_id:
+                return ref_order
+
+        return None
+
     def get_positions(self):
         self.check_context()
 
@@ -198,4 +215,11 @@ class Client:
             raise ClientException("Client is not configured")
 
 
-__all__ = ["Client", "get_version", "OrderType", "OrderStatus", "OrderSide"]
+__all__ = [
+    "Client",
+    "get_version",
+    "OrderType",
+    "OrderStatus",
+    "OrderSide",
+    "ClientException"
+]
