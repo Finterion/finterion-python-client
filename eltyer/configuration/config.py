@@ -8,11 +8,13 @@ class Config(dict):
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
 
     # ENDPOINTS
-    ORDERS_ENDPOINT = "/orders"
-    LIST_ORDERS_ENDPOINT = "/algorithms/{algorithm_id}/orders"
-    API_KEY_VERIFY_ENDPOINT = "/algorithms/api-keys/verify"
-    POSITIONS_ENDPOINT = "/algorithms/{algorithm_id}/positions"
-    PORTFOLIO_ENDPOINT = "/algorithms/{algorithm_id}/portfolio"
+    ORDERS_ENDPOINT = "/order-service/v1/orders"
+    LIST_ORDERS_ENDPOINT = "/order-service/v1/algorithms/{algorithm_id}/orders"
+    API_KEY_VERIFY_ENDPOINT = "/order-service/v1/algorithms/api-keys/verify"
+    POSITIONS_ENDPOINT = "/order-service/v1/algorithms/" \
+                         "{algorithm_id}/positions"
+    PORTFOLIO_ENDPOINT = "/order-service/v1/algorithms/" \
+                         "{algorithm_id}/portfolio"
 
     API_KEY = None
     HOST_ORDER_SERVICE = BASE_URL
