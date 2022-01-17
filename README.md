@@ -3,9 +3,6 @@
 
 # Official ELTYER Python Client
 
-> :warning: **Documentation outdated**: We are working hard on releasing v1.0.0. After 
-> this release we will update the documentation at the website.
-
 The ELTYER python client is a python library that can be used by your 
 investing algorithm. With this client your can connect your algorithm to 
 the ELTYER platform.
@@ -71,6 +68,8 @@ portfolio = client.get_portfolio()
 client.stop()
 ```
 
+## Documentation
+You can find the official documentation at our [documentation website](https://docs.eltyer.com/python-client/introduction)
 
 
 
