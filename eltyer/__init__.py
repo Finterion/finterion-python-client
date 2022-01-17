@@ -8,7 +8,7 @@ from eltyer.models import OrderSide, OrderType, Order, Position, Portfolio, \
     OrderStatus
 from eltyer.exceptions import ClientException
 
-VERSION = (0, 0, 2, 'alpha', 0)
+VERSION = (0, 1, 0, 'alpha', 0)
 
 logger = getLogger(__name__)
 
