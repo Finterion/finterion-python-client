@@ -28,3 +28,6 @@ class OrderSide(Enum):
 
         else:
             return OrderSide.from_string(other) == self
+
+    def __str__(self):
+        return str(self.value)

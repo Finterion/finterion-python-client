@@ -27,4 +27,7 @@ class OrderType(Enum):
             return self.value == other.value
 
         else:
-            return OrderType.from_string(other) == self
+            return OrderType.from_value(other) == self
+
+    def __str__(self):
+        return str(self.value)

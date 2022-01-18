@@ -35,3 +35,6 @@ class OrderStatus(Enum):
 
         else:
             return OrderStatus.from_string(other) == self
+
+    def __str__(self):
+        return str(self.value)

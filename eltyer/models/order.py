@@ -19,7 +19,7 @@ class Order(Model):
         amount_target_symbol=None,
         amount_trading_symbol=None,
     ):
-        self.id = id,
+        self.id = id
         self.order_reference = order_reference
         self.side = OrderSide.from_value(side)
         self.type = OrderType.from_value(type)
@@ -33,27 +33,27 @@ class Order(Model):
     @staticmethod
     def from_dict(data):
         return Order(
-            id=data.get("id", None),
-            order_reference=data.get("order_reference", None),
-            side=data.get("side", None),
-            type=data.get("type", None),
-            target_symbol=data.get("target_symbol", None),
-            trading_symbol=data.get("trading_symbol", None),
-            status=data.get("status", None),
-            initial_price=data.get("initial_price", None),
-            amount_target_symbol=data.get("amount_target_symbol", None),
-            amount_trading_symbol=data.get("amount_trading_symbol", None),
+            id=data.get("id"),
+            order_reference=data.get("order_reference"),
+            side=data.get("side"),
+            type=data.get("type"),
+            target_symbol=data.get("target_symbol"),
+            trading_symbol=data.get("trading_symbol"),
+            status=data.get("status"),
+            initial_price=data.get("initial_price"),
+            amount_target_symbol=data.get("amount_target_symbol"),
+            amount_trading_symbol=data.get("amount_trading_symbol"),
         )
 
     def __repr__(self):
         return self.repr(
             id=self.id,
             order_reference=self.order_reference,
-            side=self.side.value,
-            type=self.type.value,
+            side=str(self.side),
+            type=str(self.type),
             target_symbol=self.target_symbol,
             trading_symbol=self.trading_symbol,
-            status=self.status.value,
+            status=str(self.status),
             initial_price=self.initial_price,
             amount_target_symbol=self.amount_target_symbol,
             amount_trading_symbol=self.amount_trading_symbol,
