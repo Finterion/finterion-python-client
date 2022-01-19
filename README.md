@@ -1,6 +1,5 @@
 [![Tests](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml/badge.svg)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml)
-[![Build](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml)
-
+[![Build](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml/badge.svg)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml)
 # Official ELTYER Python Client
 
 The ELTYER python client is a python library that can be used by your 
