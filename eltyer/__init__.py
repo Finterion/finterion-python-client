@@ -8,7 +8,7 @@ from eltyer.models import OrderSide, OrderType, Order, Position, Portfolio, \
     OrderStatus
 from eltyer.exceptions import ClientException
 
-VERSION = (0, 1, 1, 'alpha', 0)
+VERSION = (0, 2, 0, 'alpha', 0)
 
 logger = getLogger(__name__)
 
@@ -49,11 +49,12 @@ class Client:
         return self._pool
 
     def create_limit_order(
-        self,
-        target_symbol: str,
-        price: float,
-        amount: float,
-        side: str = OrderSide.BUY.value
+            self,
+            target_symbol: str,
+            price: float,
+            amount: float,
+            side: str = OrderSide.BUY.value,
+            json=False
     ) -> Order:
         self.check_context()
 
@@ -72,12 +73,17 @@ class Client:
         )
 
         data = self._handle_response(response)
+
+        if json:
+            return data
+
         return Order.from_dict(data)
 
     def create_market_order(
-        self,
-        target_symbol: str,
-        amount: float,
+            self,
+            target_symbol: str,
+            amount: float,
+            json=False
     ) -> Order:
         payload = {
             "target_symbol": target_symbol,
@@ -93,9 +99,13 @@ class Client:
         )
 
         data = self._handle_response(response)
+
+        if json:
+            return data
+
         return Order.from_dict(data)
 
-    def get_orders(self, target_symbol: str = None, status=None):
+    def get_orders(self, target_symbol: str = None, status=None, json=False):
         self.check_context()
 
         params = {}
@@ -118,12 +128,15 @@ class Client:
         data = self._handle_response(response)
         orders = []
 
+        if json:
+            return data["items"]
+
         for order_data in data["items"]:
             orders.append(Order.from_dict(order_data))
 
         return orders
 
-    def get_order(self, reference_id) -> Order:
+    def get_order(self, reference_id, json=False) -> Order:
         response = requests.get(
             f"{self.config.HOST_ORDER_SERVICE}"
             f"{self.config.LIST_ORDERS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
@@ -136,11 +149,15 @@ class Client:
             ref_order = Order.from_dict(order_data)
 
             if ref_order.order_reference == reference_id:
+
+                if json:
+                    return order_data
+
                 return ref_order
 
         return None
 
-    def get_positions(self):
+    def get_positions(self, json=False):
         self.check_context()
 
         response = requests.get(
@@ -151,6 +168,10 @@ class Client:
         )
 
         data = self._handle_response(response)
+
+        if json:
+            return data["items"]
+
         positions = []
 
         for position_data in data["items"]:
@@ -158,7 +179,7 @@ class Client:
 
         return positions
 
-    def get_position(self, symbol: str):
+    def get_position(self, symbol: str, json=False):
         self.check_context()
 
         response = requests.get(
@@ -173,11 +194,15 @@ class Client:
         for position_data in data["items"]:
 
             if position_data["symbol"].upper() == symbol.upper():
+
+                if json:
+                    return position_data
+
                 return Position.from_dict(position_data)
 
         return None
 
-    def get_portfolio(self):
+    def get_portfolio(self, json=False):
         self.check_context()
 
         response = requests.get(
@@ -186,8 +211,12 @@ class Client:
             params={"itemized": True},
             headers={"x-api-key": self.config.API_KEY}
         )
+        data = self._handle_response(response)
 
-        return Portfolio.from_dict(self._handle_response(response))
+        if json:
+            return data
+
+        return Portfolio.from_dict(data)
 
     def _handle_response(self, response):
 
