@@ -45,6 +45,20 @@ class Order(Model):
             amount_trading_symbol=data.get("amount_trading_symbol"),
         )
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "target_symbol": self.target_symbol(),
+            "trading_symbol": self.get_trading_symbol(),
+            "amount_target_symbol": self.get_amount_target_symbol(),
+            "amount_trading_symbol":  self.get_amount_trading_symbol(),
+            "initial_price": self.get_initial_price(),
+            "side": self.get_side(),
+            "status": self.get_status(),
+            "type": self.get_type(),
+            "order_reference": self.get_order_reference()
+        }
+
     def __repr__(self):
         return self.repr(
             id=self.id,
@@ -58,3 +72,33 @@ class Order(Model):
             amount_target_symbol=self.amount_target_symbol,
             amount_trading_symbol=self.amount_trading_symbol,
         )
+
+    def get_id(self):
+        return self.id
+
+    def get_order_reference(self):
+        return self.order_reference
+
+    def get_side(self):
+        return self.side
+
+    def get_type(self):
+        return self.type
+
+    def get_target_symbol(self):
+        return self.target_symbol
+
+    def get_trading_symbol(self):
+        return self.trading_symbol
+
+    def get_status(self):
+        return self.status
+
+    def get_initial_price(self):
+        return self.initial_price
+
+    def get_amount_target_symbol(self):
+        return self.amount_target_symbol
+
+    def get_amount_trading_symbol(self):
+        return self.amount_trading_symbol
