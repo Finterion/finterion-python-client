@@ -3,12 +3,10 @@ from logging import getLogger
 from multiprocessing.pool import ThreadPool
 
 from eltyer.configuration.config import Config
-from eltyer.utils.version import get_version
 from eltyer.models import OrderSide, OrderType, Order, Position, Portfolio, \
     OrderStatus
 from eltyer.exceptions import ClientException
 
-VERSION = (0, 2, 0, 'alpha', 0)
 
 logger = getLogger(__name__)
 
@@ -256,7 +254,6 @@ class Client:
 
 __all__ = [
     "Client",
-    "get_version",
     "OrderType",
     "OrderStatus",
     "OrderSide",
