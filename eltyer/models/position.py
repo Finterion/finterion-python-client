@@ -28,3 +28,18 @@ class Position(Model):
             percentage=self.percentage,
             orders=self.orders
         )
+
+    def get_id(self):
+        return self.id
+
+    def get_orders(self):
+        return self.orders
+
+    def get_symbol(self):
+        return self.symbol
+
+    def get_percentage(self):
+        return self.percentage
+
+    def get_amount(self):
+        return self.amount
