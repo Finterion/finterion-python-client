@@ -160,6 +160,8 @@ class Client:
     def get_positions(self, json=False):
         self.check_context()
 
+        portfolio = self.get_portfolio()
+
         response = requests.get(
             f"{self.config.HOST_ORDER_SERVICE}"
             f"{self.config.POSITIONS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
@@ -172,7 +174,15 @@ class Client:
         if json:
             return data["items"]
 
-        positions = []
+        # Add unallocated as a position
+        positions = [
+            Position.from_dict(
+                {
+                    "symbol": portfolio.trading_symbol,
+                    "amount": portfolio.unallocated
+                }
+            )
+        ]
 
         for position_data in data["items"]:
             positions.append(Position.from_dict(position_data))
