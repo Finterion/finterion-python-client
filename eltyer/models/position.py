@@ -1,4 +1,5 @@
 from eltyer.models.model import Model
+from eltyer.models.order import Order
 
 
 class Position(Model):
@@ -8,7 +9,11 @@ class Position(Model):
         self.symbol = symbol
         self.amount = amount
         self.percentage = percentage
-        self.orders = orders
+        self.orders = []
+
+        if orders is not None:
+            for order_data in orders:
+                self.orders.append(Order.from_dict(order_data))
 
     @staticmethod
     def from_dict(data):
@@ -19,6 +24,16 @@ class Position(Model):
             percentage=data.get("percentage", None),
             orders=data.get("orders", None)
         )
+
+    def to_dict(self):
+        return {
+            "id": self.get_id(),
+            "symbol": self.get_symbol(),
+            "amount": self.get_amount(),
+            "percentage": self.get_percentage(),
+            "orders": self.get_orders(json=True),
+            "target_symbol": self.get_symbol()
+        }
 
     def __repr__(self):
         return self.repr(
@@ -32,7 +47,15 @@ class Position(Model):
     def get_id(self):
         return self.id
 
-    def get_orders(self):
+    def get_orders(self, json=False):
+
+        if json:
+            data = []
+
+            for order in self.orders:
+                data.append(order.to_dict())
+                return data
+
         return self.orders
 
     def get_symbol(self):
