@@ -1,8 +1,10 @@
 import requests
+import threading
 from logging import getLogger
 from multiprocessing.pool import ThreadPool
 
 from eltyer.configuration.config import Config
+from eltyer.configuration import constants
 from eltyer.models import OrderSide, OrderType, Order, Position, Portfolio, \
     OrderStatus
 from eltyer.exceptions import ClientException
@@ -19,6 +21,8 @@ class Client:
     # Algorithm specific attributes
     algorithm_id = None
     environment = None
+    scheduler = None
+    status = None
 
     def start(self):
 
@@ -28,6 +32,50 @@ class Client:
         algorithm_data = self._retrieve_algorithm()
         Client.algorithm_id = algorithm_data["algorithm_id"]
         Client.environment = algorithm_data["environment"]
+
+        self.create_subscription()
+        self.status = self.retrieve_subscription_status()
+
+        t = threading.Timer(60, self.notify_online)
+        t.daemon = True
+        t.start()
+
+    def create_subscription(self):
+
+        payload = {}
+
+        if self.config.CLOUD_FUNCTION:
+            payload = {
+                "cloud_function": True,
+                "aws_function_name": self.config.AWS_FUNCTION_NAME,
+                "time_unit": self.config.TIME_UNIT,
+                "interval": self.config.INTERVAL
+            }
+        url = f"{constants.ORCHESTRATION_CREATION_ENDPOINT.format(algorithm_id=self.algorithm_id, environment=self.environment)}"
+
+        response = requests.post(
+            url, json=payload, headers={"x-api-key": self.config.API_KEY}
+        )
+
+        self._handle_response(response)
+
+    def notify_online(self):
+        url = f"{constants.ORCHESTRATION_ONLINE_ENDPOINT.format(algorithm_id=self.algorithm_id, environment=self.environment)}"
+
+        response = requests.get(
+            url, headers={"x-api-key": self.config.API_KEY}
+        )
+
+        self._handle_response(response)
+
+    def retrieve_subscription_status(self):
+        url = f"{constants.SUBSCRIPTION_STATUS.format(algorithm_id=self.algorithm_id, environment=self.environment)}"
+
+        response = requests.get(
+            url, headers={"x-api-key": self.config.API_KEY}
+        )
+
+        return self._handle_response(response)
 
     def stop(self):
 
@@ -65,7 +113,7 @@ class Client:
         }
 
         response = requests.post(
-            f"{self.config.HOST_ORDER_SERVICE}{self.config.ORDERS_ENDPOINT}",
+            constants.ORDERS_ENDPOINT,
             json=payload,
             headers={"x-api-key": self.config.API_KEY}
         )
@@ -91,7 +139,7 @@ class Client:
         }
 
         response = requests.post(
-            f"{self.config.HOST_ORDER_SERVICE}{self.config.ORDERS_ENDPOINT}",
+            constants.ORDERS_ENDPOINT,
             json=payload,
             headers={"x-api-key": self.config.API_KEY}
         )
@@ -117,8 +165,7 @@ class Client:
         params["itemized"] = True
 
         response = requests.get(
-            f"{self.config.HOST_ORDER_SERVICE}"
-            f"{self.config.LIST_ORDERS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
+            f"{constants.LIST_ORDERS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
             params=params,
             headers={"x-api-key": self.config.API_KEY}
         )
@@ -136,8 +183,7 @@ class Client:
 
     def get_order(self, reference_id, json=False) -> Order:
         response = requests.get(
-            f"{self.config.HOST_ORDER_SERVICE}"
-            f"{self.config.LIST_ORDERS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
+            f"{constants.LIST_ORDERS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
             headers={"x-api-key": self.config.API_KEY}
         )
 
@@ -161,8 +207,7 @@ class Client:
         portfolio = self.get_portfolio()
 
         response = requests.get(
-            f"{self.config.HOST_ORDER_SERVICE}"
-            f"{self.config.POSITIONS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
+            f"{constants.POSITIONS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
             params={"itemized": True},
             headers={"x-api-key": self.config.API_KEY}
         )
@@ -191,8 +236,7 @@ class Client:
         self.check_context()
 
         response = requests.get(
-            f"{self.config.HOST_ORDER_SERVICE}"
-            f"{self.config.POSITIONS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
+            f"{constants.POSITIONS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
             params={"itemized": True},
             headers={"x-api-key": self.config.API_KEY}
         )
@@ -214,8 +258,7 @@ class Client:
         self.check_context()
 
         response = requests.get(
-            f"{self.config.HOST_ORDER_SERVICE}"
-            f"{self.config.PORTFOLIO_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
+            f"{constants.PORTFOLIO_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
             params={"itemized": True},
             headers={"x-api-key": self.config.API_KEY}
         )
@@ -233,14 +276,16 @@ class Client:
             if response.status_code == 500:
                 raise ClientException("Something went wrong at ELTYER")
 
-            raise ClientException(response.json()["error_message"])
+            try:
+                raise ClientException(response.json()["error_message"])
+            except JSONDecodeError:
+                raise ClientException("Something went wrong at ELTYER")
 
         return response.json()
 
     def _retrieve_algorithm(self):
         response = requests.get(
-            f"{self.config.HOST_ORDER_SERVICE}"
-            f"{self.config.API_KEY_VERIFY_ENDPOINT}",
+            f"{constants.API_KEY_VERIFY_ENDPOINT}",
             headers={"x-api-key": self.config.API_KEY}
         )
 

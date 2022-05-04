@@ -6,18 +6,12 @@ class Config(dict):
     LOG_LEVEL = 'INFO'
     APP_DIR = os.path.abspath(os.path.dirname(__file__))
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
-
-    # ENDPOINTS
-    ORDERS_ENDPOINT = "/order-service/v1/orders"
-    LIST_ORDERS_ENDPOINT = "/order-service/v1/algorithms/{algorithm_id}/orders"
-    API_KEY_VERIFY_ENDPOINT = "/order-service/v1/algorithms/api-keys/verify"
-    POSITIONS_ENDPOINT = "/order-service/v1/algorithms/" \
-                         "{algorithm_id}/positions"
-    PORTFOLIO_ENDPOINT = "/order-service/v1/algorithms/" \
-                         "{algorithm_id}/portfolio"
-
     API_KEY = None
     HOST_ORDER_SERVICE = BASE_URL
+    CLOUD_FUNCTION = False
+    AWS_FUNCTION_NAME = None
+    TIME_UNIT = None
+    INTERVAL = None
 
     def __init__(self):
         super().__init__()
