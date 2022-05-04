@@ -206,6 +206,13 @@ class Client:
 
         portfolio = self.get_portfolio()
 
+        unallocated_position = Position.from_dict(
+            {
+                "symbol": portfolio.trading_symbol,
+                "amount": portfolio.unallocated
+            }
+        )
+
         response = requests.get(
             f"{constants.POSITIONS_ENDPOINT.format(algorithm_id=self.algorithm_id)}",
             params={"itemized": True},
@@ -215,7 +222,9 @@ class Client:
         data = self._handle_response(response)
 
         if json:
-            return data["items"]
+            positions = data["items"]
+            positions.append(unallocated_position.to_dict())
+            return positions
 
         # Add unallocated as a position
         positions = [
