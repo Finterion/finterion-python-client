@@ -1,3 +1,5 @@
+from json import JSONDecodeError
+
 import requests
 import threading
 from logging import getLogger
