@@ -4,6 +4,7 @@ import requests
 import threading
 from logging import getLogger
 from multiprocessing.pool import ThreadPool
+from time import sleep
 
 from eltyer.configuration.config import Config
 from eltyer.configuration import constants
@@ -13,6 +14,14 @@ from eltyer.exceptions import ClientException
 
 
 logger = getLogger(__name__)
+
+
+def notify_online_loop(api_key, algorithm_id, environment):
+
+    while True:
+        sleep(60)
+        url = f"{constants.ORCHESTRATION_ONLINE_ENDPOINT.format(algorithm_id=algorithm_id, environment=environment)}"
+        requests.get(url, headers={"x-api-key": api_key})
 
 
 class Client:
@@ -38,7 +47,15 @@ class Client:
         self.create_subscription()
         self.status = self.retrieve_subscription_status()
 
-        t = threading.Timer(60, self.notify_online)
+        t = threading.Timer(
+            60,
+            notify_online_loop,
+            kwargs={
+                "api_key": self.config.API_KEY,
+                "algorithm_id": self.algorithm_id,
+                "environment": self.environment
+            }
+        )
         t.daemon = True
         t.start()
 
