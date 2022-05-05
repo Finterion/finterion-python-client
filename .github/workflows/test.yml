@@ -15,7 +15,7 @@ on:
       - '*/*'       # matches every branch containing a single '/'
       - '**'        # matches every branch
 jobs:
-  build:
+  testing:
 
     runs-on: ubuntu-latest
 
