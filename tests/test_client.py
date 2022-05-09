@@ -19,6 +19,10 @@ class ConfigTest(TestCase):
         self.client.start()
         self.assertIsNotNone(self.client.status)
 
+    def test_start_without_notify_online(self):
+        self.client.start(notify_online=False)
+        self.assertIsNone(self.client.status)
+
     def test_get_portfolio(self):
         self.client.start()
         self.assertIsNotNone(self.client.get_portfolio())
