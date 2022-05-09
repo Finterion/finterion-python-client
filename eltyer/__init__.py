@@ -35,7 +35,7 @@ class Client:
     scheduler = None
     status = None
 
-    def start(self):
+    def start(self, notify_online=True):
 
         if not self.config.configured:
             raise ClientException("Client is not configured")
@@ -44,20 +44,21 @@ class Client:
         Client.algorithm_id = algorithm_data["algorithm_id"]
         Client.environment = algorithm_data["environment"]
 
-        self.create_subscription()
-        self.status = self.retrieve_subscription_status()
+        if notify_online:
+            self.create_subscription()
+            self.status = self.retrieve_subscription_status()
 
-        t = threading.Timer(
-            60,
-            notify_online_loop,
-            kwargs={
-                "api_key": self.config.API_KEY,
-                "algorithm_id": self.algorithm_id,
-                "environment": self.environment
-            }
-        )
-        t.daemon = True
-        t.start()
+            t = threading.Timer(
+                60,
+                notify_online_loop,
+                kwargs={
+                    "api_key": self.config.API_KEY,
+                    "algorithm_id": self.algorithm_id,
+                    "environment": self.environment
+                }
+            )
+            t.daemon = True
+            t.start()
 
     def create_subscription(self):
 
