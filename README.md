@@ -1,10 +1,10 @@
-[![Tests](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml/badge.svg)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml)
-[![Build](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml/badge.svg)](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml)
-# Official ELTYER Python Client
+[![Tests](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml/badge.svg)](https://github.com/finterion/eltyer-python-client/actions/workflows/test.yml)
+[![Build](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml/badge.svg)](https://github.com/finterion/eltyer-python-client/actions/workflows/build.yml)
+# Official Finterion Python Client
 
-The ELTYER python client is a python library that can be used by your 
+The Finterion python client is a python library that can be used by your 
 investing algorithm. With this client your can connect your algorithm to 
-the ELTYER platform.
+the finterion platform.
 
 ## Installation
 You can install the client directly using pip:
