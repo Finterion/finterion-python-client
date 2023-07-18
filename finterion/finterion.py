@@ -32,7 +32,8 @@ class Finterion:
         if order_side is not None:
             query_params["side"] = order_side
 
-        return services.get_orders(self.api_key, query_params)
+        orders = services.get_orders(self.api_key, query_params)
+        return orders["items"]
 
     def get_order(self, order_id):
         return services.get_order(self.api_key, order_id)
@@ -81,7 +82,8 @@ class Finterion:
         if symbol is not None:
             query_params["symbol"] = symbol
 
-        return services.get_positions(self.api_key, query_params)
+        positions = services.get_positions(self.api_key, query_params)
+        return positions["items"]
 
     def get_portfolio(self):
         return services.get_portfolio(self.api_key)
