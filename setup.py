@@ -10,18 +10,18 @@ with open('requirements.txt') as f:
     required = f.read().splitlines()
 
 setuptools.setup(
-    name="eltyer",
+    name="finterion",
     version=get_version(),
     license='Apache License 2.0',
     author="ELTYER",
     description="Official python client for ELTYER",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ELTYER/eltyer-python-client.git",
+    url="https://github.com/finterion/finterion-python-client.git",
     packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
     keywords=[
-        'ELTYER',
-        'eltyer',
+        'Finterion',
+        'finterion',
         'investing-algorithm',
         'INVESTING',
         'BOT',

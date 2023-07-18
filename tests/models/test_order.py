@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from eltyer.models import Order
+from finterion.models import Order
 
 
 class Test(TestCase):

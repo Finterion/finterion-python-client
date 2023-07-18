@@ -1,7 +1,7 @@
-from eltyer.models.order_status import OrderStatus
-from eltyer.models.order_side import OrderSide
-from eltyer.models.order_type import OrderType
-from eltyer.models.model import Model
+from finterion.models.order_status import OrderStatus
+from finterion.models.order_side import OrderSide
+from finterion.models.order_type import OrderType
+from finterion.models.model import Model
 
 
 class Order(Model):

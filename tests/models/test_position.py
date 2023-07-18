@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from eltyer.models import Position
+from finterion.models import Position
 
 
 class Test(TestCase):

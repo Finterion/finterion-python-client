@@ -10,37 +10,20 @@ the ELTYER platform.
 You can install the client directly using pip:
 
 ```sh
-pip install eltyer
+pip install finterion
 ```
 
 ## Usage
 Example usage
 ```python
-from eltyer import Client, OrderStatus
+from finterion import Finterion
 
 # Create a client and configure it with your algorithm api keys from ELTYER
-client = Client()
-
-# ****Configuration options****
-
-# Configuration with dict
-client.config.from_dict({"API_KEY": "<YOUR_API_KEY>"})
-
-# Configuration with attribute setter
-client.config.API_KEY = "<YOUR_API_KEY>"
-
-# Configuration with environment variable 'ELTYER_API_KEY'
-client.config.from_env()
-
-# ****Configuration options****
+client = Finterion(api_key="<YOUR_API_KEY>")
 
 # ****Available Operations****
-
-# Start the ELTYER client
-client.start()
-
-# Get the api key context/environment
-client.get_environment()
+# Get algorithm model
+model = client.get_algorithm_model()
 
 # Create a limit order
 limit_order = client.create_limit_order(

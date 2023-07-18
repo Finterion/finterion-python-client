@@ -1,0 +1,10 @@
+BASE_URL = "https://api.logicfunds.io/algs"
+API_KEY = "API_KEY"
+LIST_ORDERS_ENDPOINT = BASE_URL + "/orders"
+CREATE_ORDER_ENDPOINT = BASE_URL + "/orders"
+RETRIEVE_ORDER_ENDPOINT = BASE_URL + "/orders/{order_id}"
+ALGORITHM_ENDPOINT = BASE_URL
+LIST_POSITIONS = BASE_URL + "/positions"
+RETRIEVE_POSITION = BASE_URL + "/positions/{position_id}"
+PORTFOLIO_ENDPOINT =  BASE_URL + "/portfolio"
+PING_ENDPOINT = BASE_URL + "/status/ping"

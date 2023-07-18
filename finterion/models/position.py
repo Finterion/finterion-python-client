@@ -1,5 +1,5 @@
-from eltyer.models.model import Model
-from eltyer.models.order import Order
+from finterion.models.model import Model
+from finterion.models.order import Order
 
 
 class Position(Model):

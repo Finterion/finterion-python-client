@@ -1,4 +1,4 @@
-from eltyer.models.model import Model
+from finterion.models.model import Model
 
 
 class Portfolio(Model):
