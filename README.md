@@ -18,7 +18,7 @@ Example usage
 ```python
 from finterion import Finterion, OrderStatus, OrderSide, OrderType
 
-# Create a client and configure it with your algorithm api keys from ELTYER
+# Create a client and configure it with your algorithm api keys from Finterion
 client = Finterion(api_key="<YOUR_API_KEY>")
 
 # ****Available Operations****
