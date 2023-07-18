@@ -27,11 +27,13 @@ model = client.get_algorithm_model()
 
 # Create a limit order
 limit_order = client.create_limit_order(
-    target_symbol="btc", amount=1, price=5, side="BUY",
+    target_symbol="btc", amount=1, price=5, order_side="BUY",
 )
 
 # Create a market order (only sell market orders are supported)
-market_order = client.create_market_order(target_symbol="btc", amount=1)
+market_order = client.create_market_order(
+    target_symbol="btc", amount=1, order_side="SELL"
+)
 
 # Get positions
 positions = client.get_positions()

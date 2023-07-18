@@ -14,7 +14,24 @@ class Finterion:
     def get_algorithm_model(self):
         return services.get_algorithm_model(self.api_key)
 
-    def get_orders(self, query_params=None):
+    def get_orders(self, status=None, target_symbol=None, symbol=None, order_type=None, order_side=None):
+        query_params = {"itemized": "true"}
+
+        if status is not None:
+            query_params["status"] = status
+
+        if target_symbol is not None:
+            query_params["target_symbol"] = target_symbol
+
+        if symbol is not None:
+            query_params["symbol"] = symbol
+
+        if order_type is not None:
+            query_params["type"] = order_type
+
+        if order_side is not None:
+            query_params["side"] = order_side
+
         return services.get_orders(self.api_key, query_params)
 
     def get_order(self, order_id):
@@ -58,7 +75,12 @@ class Finterion:
     def get_position(self, position_id):
         return services.get_position(self.api_key, position_id)
 
-    def get_positions(self, query_params=None):
+    def get_positions(self, symbol=None):
+        query_params = {"itemized": "true"}
+
+        if symbol is not None:
+            query_params["symbol"] = symbol
+
         return services.get_positions(self.api_key, query_params)
 
     def get_portfolio(self):
