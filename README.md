@@ -1,5 +1,5 @@
-[![Tests](https://github.com/ELTYER/eltyer-python-client/actions/workflows/test.yml/badge.svg)](https://github.com/finterion/eltyer-python-client/actions/workflows/test.yml)
-[![Build](https://github.com/ELTYER/eltyer-python-client/actions/workflows/build.yml/badge.svg)](https://github.com/finterion/eltyer-python-client/actions/workflows/build.yml)
+[![Tests](https://github.com/finterion/finterion-python-client/actions/workflows/test.yml/badge.svg)](https://github.com/finterion/finterion-python-client/actions/workflows/test.yml)
+[![Build](https://github.com/finterion/finterion-python-client/actions/workflows/build.yml/badge.svg)](https://github.com/finterion/finterion-python-client/actions/workflows/build.yml)
 # Official Finterion Python Client
 
 The Finterion python client is a python library that can be used by your 
@@ -54,7 +54,7 @@ portfolio = client.get_portfolio()
 ```
 
 ## Documentation
-You can find the official documentation at our [documentation website](https://docs.eltyer.com/python-client/introduction)
+You can find the official documentation at our [documentation website](https://docs.finterion.com/python-client/introduction)
 
 
 
