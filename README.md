@@ -16,7 +16,7 @@ pip install finterion
 ## Usage
 Example usage
 ```python
-from finterion import Finterion
+from finterion import Finterion, OrderStatus
 
 # Create a client and configure it with your algorithm api keys from ELTYER
 client = Finterion(api_key="<YOUR_API_KEY>")
@@ -47,9 +47,6 @@ orders = client.get_orders(
 
 # Get the portfolio
 portfolio = client.get_portfolio()
-
-# Stop the client
-client.stop()
 ```
 
 ## Documentation

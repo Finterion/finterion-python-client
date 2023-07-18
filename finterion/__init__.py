@@ -8,5 +8,11 @@ from finterion.finterion import Finterion
 
 __all__ = [
     "Finterion",
-    "ClientException"
+    "ClientException",
+    "OrderSide",
+    "OrderType",
+    "Order",
+    "Position",
+    "Portfolio",
+    "OrderStatus"
 ]
