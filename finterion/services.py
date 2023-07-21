@@ -17,7 +17,13 @@ def handle_response(response):
     if response.status_code == 401:
         raise ClientException("Unauthorized, check your API key")
     elif response.status_code == 400:
-        raise ClientException(response.json()["message"])
+
+        data = response.json()
+
+        if "message" in data:
+            raise ClientException(data["message"])
+
+        raise ClientException("Something went wrong")
     else:
         raise ClientException("Error connecting to finterion platform")
 
