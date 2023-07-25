@@ -1,4 +1,4 @@
-BASE_URL = "https://api.logicfunds.io/algs"
+BASE_URL = "https://api.finterion.com/algs"
 API_KEY = "API_KEY"
 LIST_ORDERS_ENDPOINT = BASE_URL + "/orders"
 CREATE_ORDER_ENDPOINT = BASE_URL + "/orders"
