@@ -3,18 +3,28 @@ from finterion import services, ClientException, OrderSide
 
 class Finterion:
 
-    def __init__(self, api_key):
+    def __init__(self, api_key, base_url="https://api.finterion.com/algs"):
         self.api_key = api_key
+        self.base_url = base_url
         self.ping()
         self.algorithm = self.get_algorithm_model()
 
     def ping(self):
-        return services.ping(self.api_key)
+        return services.ping(self.api_key, base_url=self.base_url)
 
     def get_algorithm_model(self):
-        return services.get_algorithm_model(self.api_key)
+        return services.get_algorithm_model(
+            self.api_key, base_url=self.base_url
+        )
 
-    def get_orders(self, status=None, target_symbol=None, symbol=None, order_type=None, order_side=None):
+    def get_orders(
+        self,
+        status=None,
+        target_symbol=None,
+        symbol=None,
+        order_type=None,
+        order_side=None
+    ):
         query_params = {"itemized": "true"}
 
         if status is not None:
@@ -32,13 +42,19 @@ class Finterion:
         if order_side is not None:
             query_params["side"] = order_side
 
-        orders = services.get_orders(self.api_key, query_params)
+        orders = services.get_orders(
+            self.api_key, query_params, base_url=self.base_url
+        )
         return orders["items"]
 
     def get_order(self, order_id):
-        return services.get_order(self.api_key, order_id)
+        return services.get_order(
+            self.api_key, order_id, base_url=self.base_url
+        )
 
-    def create_order(self, target_symbol, order_side, order_type, amount, price):
+    def create_order(
+        self, target_symbol, order_side, order_type, amount, price
+    ):
         data = {
             "target_symbol": target_symbol,
             "side": order_side,
@@ -46,7 +62,9 @@ class Finterion:
             "amount": amount,
             "price": price
         }
-        return services.create_order(self.api_key, data)
+        return services.create_order(
+            self.api_key, data, base_url=self.base_url
+        )
 
     def create_limit_order(self, target_symbol, order_side, amount, price):
         data = {
@@ -56,7 +74,9 @@ class Finterion:
             "amount": amount,
             "price": price
         }
-        return services.create_order(self.api_key, data)
+        return services.create_order(
+            self.api_key, data, base_url=self.base_url
+        )
 
     def create_market_order(self, target_symbol, order_side, amount):
 
@@ -71,10 +91,14 @@ class Finterion:
             "type": "MARKET",
             "amount": amount,
         }
-        return services.create_order(self.api_key, data)
+        return services.create_order(
+            self.api_key, data, base_url=self.base_url
+        )
 
     def get_position(self, position_id):
-        return services.get_position(self.api_key, position_id)
+        return services.get_position(
+            self.api_key, position_id, base_url=self.base_url
+        )
 
     def get_positions(self, symbol=None):
         query_params = {"itemized": "true"}
@@ -82,8 +106,12 @@ class Finterion:
         if symbol is not None:
             query_params["symbol"] = symbol
 
-        positions = services.get_positions(self.api_key, query_params)
+        positions = services.get_positions(
+            self.api_key, query_params, base_url=self.base_url
+        )
         return positions["items"]
 
     def get_portfolio(self):
-        return services.get_portfolio(self.api_key)
+        return services.get_portfolio(
+            self.api_key, self.base_url
+        )
