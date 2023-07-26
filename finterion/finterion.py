@@ -3,9 +3,13 @@ from finterion import services, ClientException, OrderSide
 
 class Finterion:
 
-    def __init__(self, api_key, base_url="https://api.finterion.com/algs"):
+    def __init__(self, api_key, base_url=None):
         self.api_key = api_key
         self.base_url = base_url
+
+        if self.base_url is None:
+            self.base_url = "https://api.finterion.com/algs"
+
         self.ping()
         self.algorithm = self.get_algorithm_model()
 
