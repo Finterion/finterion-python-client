@@ -67,7 +67,7 @@ class Finterion:
             "price": price
         }
         return services.create_order(
-            self.api_key, data, base_url=self.base_url
+            self.api_key, base_url=self.base_url, data=data
         )
 
     def create_limit_order(self, target_symbol, order_side, amount, price):
@@ -79,7 +79,7 @@ class Finterion:
             "price": price
         }
         return services.create_order(
-            self.api_key, data, base_url=self.base_url
+            api_key=self.api_key, data=data, base_url=self.base_url
         )
 
     def create_market_order(self, target_symbol, order_side, amount):
@@ -96,7 +96,7 @@ class Finterion:
             "amount": amount,
         }
         return services.create_order(
-            self.api_key, data, base_url=self.base_url
+            api_key=self.api_key, data=data, base_url=self.base_url
         )
 
     def get_position(self, position_id):
