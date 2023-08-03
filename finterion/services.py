@@ -55,19 +55,16 @@ def get_orders(api_key, query_params, base_url):
     return handle_response(response)
 
 
-def get_order(api_key, query_params, base_url):
-    url = get_retrieve_order_url(base_url, query_params["order_id"])
-    response = requests.get(
-        url, headers={"XApiKey": api_key}, params=query_params
-    )
+def get_order(api_key, order_id, base_url):
+    url = get_retrieve_order_url(base_url, order_id)
+    response = requests.get(url, headers={"XApiKey": api_key})
     return handle_response(response)
 
 
 def create_order(api_key, data, base_url):
     url = create_order_url(base_url)
-    response = requests.post(
-        url, headers={"XApiKey": api_key}, json=json.dumps(data)
-    )
+    headers = {"XApiKey": api_key, "Content-Type": "application/json"}
+    response = requests.post(url, headers=headers, data=json.dumps(data))
     return handle_response(response)
 
 
