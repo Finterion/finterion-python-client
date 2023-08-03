@@ -64,7 +64,9 @@ class Finterion:
             "side": order_side,
             "type": order_type,
             "amount": amount,
-            "price": price
+            "price": price,
+            "environment": self.algorithm["environment"],
+
         }
         return services.create_order(
             self.api_key, base_url=self.base_url, data=data
@@ -73,10 +75,11 @@ class Finterion:
     def create_limit_order(self, target_symbol, order_side, amount, price):
         data = {
             "target_symbol": target_symbol,
-            "side": order_side,
-            "type": "LIMIT",
+            "order_side": order_side,
+            "order_type": "LIMIT",
             "amount": amount,
-            "price": price
+            "price": price,
+            "environment": self.algorithm["environment"],
         }
         return services.create_order(
             api_key=self.api_key, data=data, base_url=self.base_url
@@ -91,9 +94,10 @@ class Finterion:
 
         data = {
             "target_symbol": target_symbol,
-            "side": order_side,
-            "type": "MARKET",
+            "order_side": order_side,
+            "order_type": "MARKET",
             "amount": amount,
+            "environment": self.algorithm["environment"],
         }
         return services.create_order(
             api_key=self.api_key, data=data, base_url=self.base_url
