@@ -17,10 +17,6 @@ class Finterion:
         logger.info(f"Setup Finterion client with base url {self.base_url}")
         self.ping()
         self.algorithm = self.get_algorithm_model()
-        logger.info(
-            f"Running algorithm {self.algorithm.get_name()} in "
-            f"environment {self.algorithm.get_environment()}"
-        )
 
     def ping(self):
         return services.ping(self.api_key, base_url=self.base_url)
