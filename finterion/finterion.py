@@ -36,7 +36,10 @@ class Finterion:
         order_type=None,
         order_side=None
     ):
-        query_params = {"itemized": "true"}
+        query_params = {
+            "itemized": "true",
+            "environment": self.algorithm["environment"],
+        }
 
         if status is not None:
             query_params["status"] = status
@@ -127,7 +130,10 @@ class Finterion:
         return response
 
     def get_positions(self, symbol=None):
-        query_params = {"itemized": "true"}
+        query_params = {
+            "itemized": "true",
+            "environment": self.algorithm["environment"],
+        }
 
         if symbol is not None:
             query_params["symbol"] = symbol
