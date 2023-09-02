@@ -13,9 +13,11 @@ class Finterion:
 
         if self.base_url is None:
             self.base_url = "https://api.finterion.com/algs"
+        else:
+            logger.info(
+                f"Setup Finterion client with base url {self.base_url}"
+            )
 
-        logger.info(f"Setup Finterion client with base url {self.base_url}")
-        self.ping()
         self.algorithm = self.get_algorithm_model()
 
     def ping(self):
@@ -25,7 +27,7 @@ class Finterion:
         response = services.get_algorithm_model(
             self.api_key, base_url=self.base_url
         )
-        logger.info(f"get_algorithm_model response {response}")
+        logger.debug(f"get_algorithm_model response {response}")
         return response
 
     def get_orders(
@@ -59,7 +61,7 @@ class Finterion:
         orders = services.get_orders(
             self.api_key, query_params, base_url=self.base_url
         )
-        logger.info(f"get_orders response {orders}")
+        logger.debug(f"get_orders response {orders}")
         return orders["items"]
 
     def get_order(self, order_id):
@@ -84,7 +86,7 @@ class Finterion:
         response = services.create_order(
             self.api_key, base_url=self.base_url, data=data
         )
-        logger.info(f"create_order response {response}")
+        logger.debug(f"create_order response {response}")
         return response
 
     def create_limit_order(self, target_symbol, order_side, amount, price):
@@ -99,7 +101,7 @@ class Finterion:
         response = services.create_order(
             api_key=self.api_key, data=data, base_url=self.base_url
         )
-        logger.info(f"create_limit_order response {response}")
+        logger.debug(f"create_limit_order response {response}")
         return response
 
     def create_market_order(self, target_symbol, order_side, amount):
@@ -119,14 +121,14 @@ class Finterion:
         response = services.create_order(
             api_key=self.api_key, data=data, base_url=self.base_url
         )
-        logger.info(f"create_market_order response {response}")
+        logger.debug(f"create_market_order response {response}")
         return response
 
     def get_position(self, position_id):
         response = services.get_position(
             self.api_key, position_id, base_url=self.base_url
         )
-        logger.info(f"get_position response {response}")
+        logger.debug(f"get_position response {response}")
         return response
 
     def get_positions(self, symbol=None):
@@ -141,12 +143,12 @@ class Finterion:
         positions = services.get_positions(
             self.api_key, query_params, base_url=self.base_url
         )
-        logger.info(f"get_positions response {positions}")
+        logger.debug(f"get_positions response {positions}")
         return positions["items"]
 
     def get_portfolio(self):
         response = services.get_portfolio(
             self.api_key, self.base_url
         )
-        logger.info(f"get_portfolio response {response}")
+        logger.debug(f"get_portfolio response {response}")
         return response
