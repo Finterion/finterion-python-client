@@ -23,7 +23,9 @@ def handle_response(response):
     elif response.status_code == 400:
         logger.error("Service call failed")
         data = response.json()
-        logger.error(data)
+
+        if isinstance(data, str):
+            data = json.loads(data)
 
         if "message" in data:
             raise ClientException(data["message"])
