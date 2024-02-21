@@ -16,3 +16,4 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
           PUBLISH_REGISTRY_PASSWORD: ${{ secrets.PYPI_TOKEN }}
           BRANCH: "main"
+          POETRY_CORE_VERSION: "1.7.1"
