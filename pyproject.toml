@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "finterion-python-client"
+name = "finterion"
 version = "v0.8.2"
 description = "Official python client for Finterion"
 authors = ["marcvanduyn <marc@finterion.com>"]
