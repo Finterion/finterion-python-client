@@ -28,4 +28,3 @@ def get_retrieve_position_url(base_url, position_id):
 
 def get_retrieve_portfolio_url(base_url):
     return f"{base_url}/portfolio"
-
