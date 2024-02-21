@@ -61,10 +61,14 @@ def get_orders(api_key, query_params, base_url):
     return handle_response(response)
 
 
-def get_order(api_key, order_id, base_url):
+def get_order(api_key, order_id, base_url, query_params):
     logger.debug("Getting order")
     url = get_retrieve_order_url(base_url, order_id)
-    response = requests.get(url, headers={"XApiKey": api_key})
+    response = requests.get(
+        url,
+        headers={"XApiKey": api_key},
+        params=query_params
+    )
     return handle_response(response)
 
 
@@ -85,15 +89,22 @@ def get_positions(api_key, query_params, base_url):
     return handle_response(response)
 
 
-def get_position(api_key, position_id, base_url):
+def get_position(api_key, position_id, base_url, query_params):
+
     logger.debug("Getting position")
     url = get_retrieve_position_url(base_url, position_id)
-    response = requests.get(url, headers={"XApiKey": api_key})
+    response = requests.get(
+        url,
+        headers={"XApiKey": api_key},
+        params=query_params
+    )
     return handle_response(response)
 
 
-def get_portfolio(api_key, base_url):
+def get_portfolio(api_key, base_url, query_params):
     logger.debug("Getting portfolio")
     url = get_retrieve_portfolio_url(base_url)
-    response = requests.get(url, headers={"XApiKey": api_key})
+    response = requests.get(
+        url, headers={"XApiKey": api_key}, params=query_params
+    )
     return handle_response(response)

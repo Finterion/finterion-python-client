@@ -36,18 +36,21 @@ class Finterion:
         target_symbol=None,
         symbol=None,
         order_type=None,
-        order_side=None
+        order_side=None,
+        query_params: dict = None
     ):
-        query_params = {
-            "itemized": "true",
-            "environment": self.algorithm["environment"],
-        }
+
+        if query_params is None:
+            query_params = {}
+
+        query_params["itemized"] = "true"
+        query_params["environment"] = self.algorithm["environment"]
 
         if status is not None:
             query_params["status"] = status
 
         if target_symbol is not None:
-            query_params["target_symbol"] = target_symbol
+            query_params["TargetSymbol"] = target_symbol
 
         if symbol is not None:
             query_params["symbol"] = symbol
@@ -59,14 +62,25 @@ class Finterion:
             query_params["side"] = order_side
 
         orders = services.get_orders(
-            self.api_key, query_params, base_url=self.base_url
+            api_key=self.api_key,
+            query_params=query_params,
+            base_url=self.base_url
         )
         logger.debug(f"get_orders response {orders}")
         return orders["items"]
 
-    def get_order(self, order_id):
+    def get_order(self, order_id, query_params: dict = None):
+
+        if query_params is None:
+            query_params = {}
+
+        query_params["environment"] = self.algorithm["environment"]
+
         response = services.get_order(
-            self.api_key, order_id, base_url=self.base_url
+            api_key=self.api_key,
+            order_id=order_id,
+            base_url=self.base_url,
+            query_params=query_params
         )
         logger.info(f"get_order response {response}")
         return response
@@ -84,7 +98,9 @@ class Finterion:
 
         }
         response = services.create_order(
-            self.api_key, base_url=self.base_url, data=data
+            api_key=self.api_key,
+            base_url=self.base_url,
+            data=data
         )
         logger.debug(f"create_order response {response}")
         return response
@@ -124,18 +140,29 @@ class Finterion:
         logger.debug(f"create_market_order response {response}")
         return response
 
-    def get_position(self, position_id):
+    def get_position(self, position_id, query_params: dict = None):
+
+        if query_params is None:
+            query_params = {}
+
+        query_params["environment"] = self.algorithm["environment"]
+
         response = services.get_position(
-            self.api_key, position_id, base_url=self.base_url
+            api_key=self.api_key,
+            position_id=position_id,
+            base_url=self.base_url,
+            query_params=query_params
         )
         logger.debug(f"get_position response {response}")
         return response
 
-    def get_positions(self, symbol=None):
-        query_params = {
-            "itemized": "true",
-            "environment": self.algorithm["environment"],
-        }
+    def get_positions(self, symbol=None, query_params: dict = None):
+
+        if query_params is None:
+            query_params = {}
+
+        query_params["itemized"] = "true"
+        query_params["environment"] = self.algorithm["environment"]
 
         if symbol is not None:
             query_params["symbol"] = symbol
@@ -146,9 +173,14 @@ class Finterion:
         logger.debug(f"get_positions response {positions}")
         return positions["items"]
 
-    def get_portfolio(self):
+    def get_portfolio(self, query_params: dict = None):
+        if query_params is None:
+            query_params = {}
+
         response = services.get_portfolio(
-            self.api_key, self.base_url
+            api_key=self.api_key,
+            query_params=query_params,
+            base_url=self.base_url
         )
         logger.debug(f"get_portfolio response {response}")
         return response
