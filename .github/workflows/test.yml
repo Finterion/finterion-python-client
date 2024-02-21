@@ -88,12 +88,12 @@ jobs:
       - name: Run tests
         run: |
           source .venv/bin/activate
-          coverage run -m unittest discover -s tests --cov-report=xml
-      #----------------------------------------------
-      #             upload coverage stats
-      #----------------------------------------------
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./coverage.xml
-          fail_ci_if_error: true
+          coverage run -m unittest discover -s tests
+#      #----------------------------------------------
+#      #             upload coverage stats
+#      #----------------------------------------------
+#      - name: Upload coverage
+#        uses: codecov/codecov-action@v3
+#        with:
+#          file: ./coverage.xml
+#          fail_ci_if_error: true
