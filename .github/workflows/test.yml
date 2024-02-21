@@ -88,5 +88,4 @@ jobs:
       - name: Run tests
         run: |
           source .venv/bin/activate
-          python -m unittest discover -s tests
-          coverage report
+          coverage run -m unittest discover -s tests
