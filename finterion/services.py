@@ -6,7 +6,7 @@ import requests
 from finterion.configuration.urls import get_retrieve_order_url, \
     get_ping_url, get_algorithm_url, get_retrieve_portfolio_url, \
     get_retrieve_position_url, get_list_positions_url, get_list_orders_url, \
-    create_order_url
+    create_order_url, get_supported_symbols_url
 from finterion.exceptions import ClientException
 
 logger = logging.getLogger("finterion")
@@ -107,4 +107,11 @@ def get_portfolio(api_key, base_url, query_params):
     response = requests.get(
         url, headers={"XApiKey": api_key}, params=query_params
     )
+    return handle_response(response)
+
+
+def get_supported_symbols(api_key, base_url):
+    logger.debug("Getting supported symbols")
+    url = get_supported_symbols_url(base_url)
+    response = requests.get(url, headers={"XApiKey": api_key})
     return handle_response(response)

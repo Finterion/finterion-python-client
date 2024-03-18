@@ -184,3 +184,11 @@ class Finterion:
         )
         logger.debug(f"get_portfolio response {response}")
         return response
+
+    def get_supported_symbols(self):
+        response = services.get_supported_symbols(
+            api_key=self.api_key,
+            base_url=self.base_url
+        )
+        logger.debug(f"get_supported_symbols response {response}")
+        return response
