@@ -31,4 +31,4 @@ def get_retrieve_portfolio_url(base_url):
 
 
 def get_supported_symbols_url(base_url):
-    return f"{base_url}/symbols"
+    return f"{base_url}/data/symbols"
