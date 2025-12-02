@@ -83,8 +83,10 @@ class Finterion:
             target_symbol (str, optional): Filter orders by target symbol.
                 Defaults to None.
             symbol (str, optional): Filter orders by symbol. Defaults to None.
-            order_type (str, optional): Filter orders by type. Defaults to None.
-            order_side (str, optional): Filter orders by side. Defaults to None.
+            order_type (str, optional): Filter orders by type. Defaults
+                to None.
+            order_side (str, optional): Filter orders by side. Defaults
+                to None.
             query_params (dict, optional): Additional query parameters.
                 Defaults to None.
 
@@ -271,7 +273,8 @@ class Finterion:
         the provided filters.
 
         Args:
-            symbol (str, optional): Filter positions by symbol. Defaults to None.
+            symbol (str, optional): Filter positions by symbol. Defaults
+                to None.
             query_params (dict, optional): Additional query parameters.
                 Defaults to None.
 
