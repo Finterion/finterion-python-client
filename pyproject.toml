@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "finterion"
-version = "v0.8.7"
+version = "v0.8.8"
 description = "Official python client for Finterion"
 authors = ["marcvanduyn <marc@finterion.com>"]
 license = "Apache License 2.0"
