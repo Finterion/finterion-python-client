@@ -6,11 +6,9 @@ on:
       - '*'         # matches every branch that doesn't contain a '/'
       - '*/*'       # matches every branch containing a single '/'
       - '**'        # matches every branch
-    pull_request:
-      branches:
-        - '*'         # matches every branch that doesn't contain a '/'
-        - '*/*'       # matches every branch containing a single '/'
-        - '**'        # matches every branch
+    paths:
+      - 'finterion/**'
+      - 'tests/**'
 
 jobs:
   linting:
@@ -41,7 +39,10 @@ jobs:
       fail-fast: true
       matrix:
         os: [ "ubuntu-latest", "macos-latest" ]
-        python-version: [ "3.8", "3.9", "3.10", "3.11", "3.12" ]
+        python-version: [ "3.10", "3.11" ]
+    defaults:
+      run:
+        shell: bash
     runs-on: ${{ matrix.os }}
     steps:
       #----------------------------------------------
@@ -55,11 +56,21 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       #----------------------------------------------
+      #  -----  install distutils if needed  -----
+      #----------------------------------------------
+      - name: Install distutils on Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo add-apt-repository ppa:deadsnakes/ppa
+          sudo apt-get update
+          sudo apt install python${{ matrix.python-version }}-distutils
+      #----------------------------------------------
       #  -----  install & configure poetry  -----
       #----------------------------------------------
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
+          version: 1.7.1
           virtualenvs-create: true
           virtualenvs-in-project: true
       #----------------------------------------------
@@ -76,18 +87,20 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
+        run: |
+          poetry install --no-interaction --no-root
       #----------------------------------------------
       # install your root project, if required
       #----------------------------------------------
       - name: Install library
-        run: poetry install --no-interaction
+        run: |
+          poetry install --no-interaction
       #----------------------------------------------
       #    add matrix specifics and run test suite
       #----------------------------------------------
       - name: Run tests
         run: |
-          source .venv/bin/activate
+          source $VENV
           coverage run -m unittest discover -s tests
 #      #----------------------------------------------
 #      #             upload coverage stats
