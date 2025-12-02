@@ -2,9 +2,17 @@
 [![Build](https://github.com/finterion/finterion-python-client/actions/workflows/build.yml/badge.svg)](https://github.com/finterion/finterion-python-client/actions/workflows/build.yml)
 # Official Finterion Python Client
 
+<a href="https://www.finterion.com/" target="_blank">
+    <picture style="height: 30px;">
+    <source media="(prefers-color-scheme: dark)" srcset="static/sponsors/finterion-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="static/sponsors/finterion-light.png">
+    <img src="static/sponsors/finterion-light.png" alt="Finterion Logo" width="200px" height="50px">
+    </picture>
+</a>
+
 The Finterion python client is a python library that can be used by your 
-investing algorithm. With this client your can connect your algorithm to 
-the finterion platform.
+trading bots/quantitative trading strategies that are registered at the [Finterion platform](https://finterion.com). 
+It provides a simple and easy-to-use interface for interacting with the Finterion API.
 
 ## Installation
 You can install the client directly using pip:
@@ -55,6 +63,3 @@ portfolio = client.get_portfolio()
 
 ## Documentation
 You can find the official documentation at our [documentation website](https://docs.finterion.com/python-client/introduction)
-
-
-
