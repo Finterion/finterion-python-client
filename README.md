@@ -10,6 +10,7 @@
     </picture>
 </a>
 
+
 The Finterion python client is a python library that can be used by your 
 trading bots/quantitative trading strategies that are registered at the [Finterion platform](https://finterion.com). 
 It provides a simple and easy-to-use interface for interacting with the Finterion API.
